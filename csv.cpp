@@ -6,15 +6,29 @@
 using namespace std;
 
 /* 
-   For testing
+   Example
  */
 int main() {
 
   CSV csv;
 
-  csv.open("test1.csv");
+  csv.open("titanic.csv");
 
-  csv.print();
+ 
+  map<string, vector<string> > mymap = csv.get_map();
+
+  int size = 0;
+
+  cout << "Outputing Map." << endl;
+  cout << "Size: " << mymap.size() << endl;
+
+  cout << mymap["name"][0] << endl;
+  size = mymap["name"].size();
+
+  for (int i = 0; i < size; i++) {
+    
+    cout << mymap["name"][i] << endl;
+  }
   
   return 0;
 }
@@ -25,6 +39,61 @@ CSV::CSV() {
   data.clear();
 }
 
+
+
+vector<std::vector<std::string> > CSV::get_vector() {
+  return data;
+}
+
+/*
+  converts the vector into an ordered map
+  with keys being attribute names on header file.
+*/
+map<string, vector<string> > CSV::get_map(bool head) {
+  
+  int size = data.size();
+
+  map<string, vector<string> > themap;
+
+  vector<string> line;
+
+  int colsize = data[0].size();
+
+  for (int i = 0; i < colsize; i++) {
+
+    themap[data[0][i]] = col_to_vector(i, true);
+  }
+
+  
+  return themap;
+
+}
+
+/*
+  Returns a vector of one col of the data
+*/
+vector <string> CSV::col_to_vector(int col, bool header) {
+
+  vector<string> value;
+
+  int size = data.size();
+
+  for (int i = 0; i < size; i++) {
+
+    if (i == 0 && header == true) {
+      continue;
+    }
+
+    if (col < data[i].size()) {
+   
+      value.push_back(data[i][col]);
+    }
+
+  }
+
+  return value;
+      
+}
 
 /*
   Opens a CSV
@@ -37,6 +106,8 @@ void CSV::open(string filename) {
   state1(file);
 
 }
+
+
 
 /*
   Used for testing
@@ -101,7 +172,7 @@ void CSV::state2(ifstream &file) {
 /*
   Another accepting state
   This is end of line
-  goes back to beginning state after
+  without input it goes back to the beginning state.
 */
 void CSV::state3(ifstream &file) {
 

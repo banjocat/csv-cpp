@@ -1,10 +1,21 @@
 
 A CSV reader.
+A type <map> is what I use for my projects.
+So that is the output it gives.
+It reads it as a vector orginally so that is a possible output also.
 
-Currently it stores the data in a
-vector<vector <string> > 
-Eventually I plan to add different outputs
 
-It uses a nondeterministic FA to read the files.
-Probably not the most efficient since it uses recursion.
-But was fun to write!
+To open a CSV file
+CSV csv;
+csv.open("titanic.csv");
+
+
+To get data
+csv.get_map();  // returns a <map> with header file as keys
+csv.get_vector(); // returns 2 dimensional <vector>
+
+
+
+TODO
+Currently it expects the first line to be a header.
+Handing of empty values in CSV needs to be looked at.

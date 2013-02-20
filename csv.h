@@ -17,6 +17,11 @@ class CSV {
 
   void open(std::string filename);
 
+ 
+  std::vector<std::vector<std::string> > get_vector();
+
+  std::map<std::string, std::vector<std::string> > get_map(bool head = true);
+
   /*
     For testing
   */
@@ -28,6 +33,7 @@ class CSV {
   std::string cache;
   std::vector <std::string> line;
 
+  std::vector<std::string> col_to_vector(int col, bool header = true);
 
   /*
     A non deterministic FA is used for fun.
