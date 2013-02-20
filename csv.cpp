@@ -26,7 +26,10 @@ CSV::CSV() {
 }
 
 
-
+/*
+  Opens a CSV
+  not sure if I"ll have it test for header file here or not
+*/
 void CSV::open(string filename) {
 
   ifstream file(filename.c_str());
@@ -35,6 +38,9 @@ void CSV::open(string filename) {
 
 }
 
+/*
+  Used for testing
+*/
 void CSV::print() {
 
   cout << "Printing CSV." << endl;
@@ -51,6 +57,10 @@ void CSV::print() {
   }
 }
 
+/*
+  This is the starting state
+  Saves to the cache all but special chars
+*/
 void CSV::state1(ifstream &file) {
 
   char c;
@@ -76,6 +86,10 @@ void CSV::state1(ifstream &file) {
   }
 }
 
+/*
+  This is an acccepting state
+  It then moves without input to state1
+*/
 void CSV::state2(ifstream &file) {
 
   line.push_back(cache);
@@ -84,6 +98,11 @@ void CSV::state2(ifstream &file) {
   state1(file);
 }
   
+/*
+  Another accepting state
+  This is end of line
+  goes back to beginning state after
+*/
 void CSV::state3(ifstream &file) {
 
   line.push_back(cache);
@@ -95,6 +114,11 @@ void CSV::state3(ifstream &file) {
   
 }
 
+/*
+  Reached a special char "
+  Skips , till another " or EOL
+  This will not add the " to the data
+*/
 void CSV::state4(ifstream &file) {
   
   char c;
@@ -117,6 +141,10 @@ void CSV::state4(ifstream &file) {
 }
 
 
+
+/*
+  flushes all data if EOF was reached
+*/
 void CSV::clean() {
 
   if (cache.size() > 0) {
