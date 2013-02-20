@@ -4,3 +4,7 @@ A CSV reader.
 Currently it stores the data in a
 vector<vector <string> > 
 Eventually I plan to add different outputs
+
+It uses a nondeterministic FA to read the files.
+Probably not the most efficient since it uses recursion.
+But was fun to write!
