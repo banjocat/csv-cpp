@@ -26,7 +26,7 @@ int main() {
   size = mymap["name"].size();
 
   for (int i = 0; i < size; i++) {
-    
+ 
     cout << mymap["name"][i] << endl;
   }
   
@@ -35,10 +35,11 @@ int main() {
 
 CSV::CSV() {
   cache = "";
-  line.clear();
-  data.clear();
 }
 
+
+CSV::~CSV() {
+}
 
 
 vector<std::vector<std::string> > CSV::get_vector() {
@@ -105,6 +106,7 @@ void CSV::open(string filename) {
   
   state1(file);
 
+  file.close();
 }
 
 
@@ -176,6 +178,7 @@ void CSV::state2(ifstream &file) {
 */
 void CSV::state3(ifstream &file) {
 
+ 
   line.push_back(cache);
   data.push_back(line);
   line.clear();
@@ -219,6 +222,8 @@ void CSV::state4(ifstream &file) {
 void CSV::clean() {
 
   if (cache.size() > 0) {
+
+
     line.push_back(cache);
   }
 

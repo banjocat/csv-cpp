@@ -14,6 +14,7 @@ class CSV {
  public:
 
   CSV();
+  ~CSV();
 
   void open(std::string filename);
 
@@ -35,6 +36,10 @@ class CSV {
 
   std::vector<std::string> col_to_vector(int col, bool header = true);
 
+  /*
+    no copies
+  */
+  CSV(const CSV&csv);
   /*
     A non deterministic FA is used for fun.
   */
